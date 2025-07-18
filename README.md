@@ -2,7 +2,8 @@
 
 A Java Swing-based graphical user interface desktop application designed to simulate and monitor the injection molding cycle. It allows users to input process parameters, calculate key timings, and visually track the injection, cooling, and ejection stages in real time.
 
-<img width="960" height="504" alt="INJECTION" src="https://github.com/user-attachments/assets/03b66b45-0b5a-43c6-8456-92bed052f2c2" />
+<img width="960" height="504" alt="image" src="https://github.com/user-attachments/assets/3d8c24f8-b1ff-41d0-b5e2-c50bb7ec6a7a" />
+
 
 
 ## Project Context
