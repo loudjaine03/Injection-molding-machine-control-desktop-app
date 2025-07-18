@@ -20,7 +20,7 @@ public class Tp4 {
         JFrame frame = new JFrame("Injection Molding Machine Control ");
         frame.setSize(1000, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setIconImage(new ImageIcon("C:\\Users\\bensa\\Documents\\NetBeansProjects\\Tp4\\src\\tp4\\1.png").getImage());
+        frame.setIconImage(new ImageIcon("1.png").getImage());
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -82,7 +82,7 @@ public class Tp4 {
             //background
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon("C:\\Users\\bensa\\Documents\\NetBeansProjects\\Tp4\\src\\tp4\\2.png");
+                ImageIcon backgroundImage = new ImageIcon("2.png");
                 g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
