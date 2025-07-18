@@ -1,3 +1,4 @@
+package tp4;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class Tp4 {
         JFrame frame = new JFrame("Injection Molding Machine Control ");
         frame.setSize(1000, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setIconImage(new ImageIcon("path\\to\\image").getImage());
+        frame.setIconImage(new ImageIcon("C:\\Users\\bensa\\Documents\\NetBeansProjects\\Tp4\\src\\tp4\\1.png").getImage());
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -35,8 +36,8 @@ public class Tp4 {
             "Eject Temperature (°C):",
             "Injection Speed (mm/s):",
             "Injection Pressure (MPa):",
-            "Mold Gate's opening Length (cm):",
-            "Mold Gate's opening Width (cm):",
+            "Mold Gate's opening Length (mm):",
+            "Mold Gate's opening Width (mm):",
             "Length (cm):",
             "Width (cm):",
             "Height (cm):",
@@ -81,7 +82,7 @@ public class Tp4 {
             //background
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon("path\\to\\image");
+                ImageIcon backgroundImage = new ImageIcon("C:\\Users\\bensa\\Documents\\NetBeansProjects\\Tp4\\src\\tp4\\2.png");
                 g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
@@ -117,15 +118,14 @@ public class Tp4 {
                     double meltTemp = Double.parseDouble(inputTextFields[0].getText());
                     double moldTemp = Double.parseDouble(inputTextFields[1].getText());
                     double ejectTemp = Double.parseDouble(inputTextFields[2].getText());
-                    double injectionSpeed = Double.parseDouble(inputTextFields[3].getText())/ 10.0; 
-;
+                    double injectionSpeed = Double.parseDouble(inputTextFields[3].getText());
                     double injectionPressure = Double.parseDouble(inputTextFields[4].getText());
                     double openingLength = Double.parseDouble(inputTextFields[5].getText());
                     double openingWidth = Double.parseDouble(inputTextFields[6].getText());
-                    double length = Double.parseDouble(inputTextFields[7].getText());
-                    double width = Double.parseDouble(inputTextFields[8].getText());
-                    double height = Double.parseDouble(inputTextFields[9].getText());
-                    double thickness = Double.parseDouble(inputTextFields[10].getText());
+                    double length = Double.parseDouble(inputTextFields[7].getText())*10;
+                    double width = Double.parseDouble(inputTextFields[8].getText())*10;
+                    double height = Double.parseDouble(inputTextFields[9].getText())*10;
+                    double thickness = Double.parseDouble(inputTextFields[10].getText())*10;
 
                     String selectedMaterial = (String) materialComboBox.getSelectedItem();
                     double thermalDiffusivity = MaterialParameters(selectedMaterial, inputTextFields[0], inputTextFields[1], inputTextFields[2], errorLabel);
