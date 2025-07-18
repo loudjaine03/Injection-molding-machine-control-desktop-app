@@ -10,6 +10,9 @@ import java.io.IOException;
 public class Tp4 {
     private static Timer timer;
 
+
+    private static JTextField[] inputTextFields = new JTextField[11]; // input fields
+
     public static void main(String[] args) {
 
         // Main Frame
@@ -25,64 +28,47 @@ public class Tp4 {
         config.setLayout(new GridLayout(0, 2, 10, 10));
         config.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10), new TitledBorder("Configuration")));
 
-        JLabel t1 = new JLabel("Melt Temperature (°C):");
-        JLabel t2 = new JLabel("Mold Temperature (°C):");
-        JLabel t3 = new JLabel("Eject Temperature (°C):");
-        JLabel s = new JLabel("Injection Speed (mm/s):");
-        JLabel p = new JLabel("Injection Pressure (MPa):");
-        JLabel l = new JLabel("Length (cm):");
-        JLabel w = new JLabel("Width (cm):");
-        JLabel h = new JLabel("Height (cm):");
-        JLabel l2 = new JLabel("Opening Length (cm):");
-        JLabel w2 = new JLabel("Opening Width (cm):");
-        JLabel matLabel = new JLabel("Material Type:");
-        JTextField txt1 = new JTextField();
-        JTextField txt2 = new JTextField();
-        JTextField txt3 = new JTextField();
-        JTextField txt4 = new JTextField();
-        JTextField txt5 = new JTextField();
-        JTextField txt6 = new JTextField();
-        JTextField txt7 = new JTextField();
-        JTextField txt8 = new JTextField();
-        JTextField txt9 = new JTextField();
-        JTextField txt10 = new JTextField();
+       //labels and input fields
+        String[] labels = {
+            "Melt Temperature (°C):",
+            "Mold Temperature (°C):",
+            "Eject Temperature (°C):",
+            "Injection Speed (mm/s):",
+            "Injection Pressure (MPa):",
+            "Mold Gate's opening Length (cm):",
+            "Mold Gate's opening Width (cm):",
+            "Length (cm):",
+            "Width (cm):",
+            "Height (cm):",
+            "Thickness (cm):"
+        };
+
+        for (int i = 0; i < labels.length; i++) {
+            inputTextFields[i] = new JTextField();
+            config.add(new JLabel(labels[i]));
+            config.add(inputTextFields[i]);
+
+            if (i == 2) {
+                config.add(new JLabel("Machine Parameters:"));
+                config.add(new JLabel(""));
+            } else if (i == 6) { 
+                config.add(new JLabel("Piece Size:"));
+                config.add(new JLabel(""));
+            }
+        }
+        
+
+        // Material Type
         String[] materials = {"ABS", "PP", "PC", "Nylon", "PLA", "Ceramic", "Porcelain", "Alumina", "SiliconCarbide", "Zirconia"};
         JComboBox<String> materialComboBox = new JComboBox<>(materials);
+        config.add(new JLabel("Material Type:"));
+        config.add(materialComboBox);
+        
+        //Calculate button
         JButton calculateButton = new JButton("Calculate");
         calculateButton.setBackground(new Color(70, 130, 180));
         calculateButton.setForeground(Color.WHITE);
         calculateButton.setFont(new Font("Arial", Font.BOLD, 14));
-
-        config.add(new JLabel("Injection Molding Parameters:"));
-        config.add(new JLabel(""));
-        config.add(t1);
-        config.add(txt1);
-        config.add(t2);
-        config.add(txt2);
-        config.add(t3);
-        config.add(txt3);
-        config.add(new JLabel("Machine Parameters:"));
-        config.add(new JLabel(""));
-        config.add(s);
-        config.add(txt4);
-        config.add(p);
-        config.add(txt5);
-        config.add(l2);
-        config.add(txt9);
-        config.add(w2);
-        config.add(txt10);
-
-        config.add(new JLabel("Piece Size:"));
-        config.add(new JLabel(""));
-        config.add(l);
-        config.add(txt6);
-        config.add(w);
-        config.add(txt7);
-        config.add(h);
-        config.add(txt8);
-
-        config.add(matLabel);
-        config.add(materialComboBox);
         config.add(calculateButton);
 
         // Error label
@@ -120,7 +106,7 @@ public class Tp4 {
         materialComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedMaterial = (String) materialComboBox.getSelectedItem();
-                double thermalDiffusivity = MaterialParameters(selectedMaterial, txt1, txt2, txt3, errorLabel);
+                double thermalDiffusivity = MaterialParameters(selectedMaterial, inputTextFields[0], inputTextFields[1], inputTextFields[2], errorLabel);
             }
         });
 
@@ -128,31 +114,83 @@ public class Tp4 {
         calculateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    double meltTemp = Double.parseDouble(txt1.getText());
-                    double moldTemp = Double.parseDouble(txt2.getText());
-                    double ejectTemp = Double.parseDouble(txt3.getText());
-                    double injectionSpeed = Double.parseDouble(txt4.getText());
-                    double injectionPressure = Double.parseDouble(txt5.getText());
-                    double length = Double.parseDouble(txt6.getText());
-                    double width = Double.parseDouble(txt7.getText());
-                    double height = Double.parseDouble(txt8.getText());
-                    double openingLength = Double.parseDouble(txt9.getText());
-                    double openingWidth = Double.parseDouble(txt10.getText());
+                    double meltTemp = Double.parseDouble(inputTextFields[0].getText());
+                    double moldTemp = Double.parseDouble(inputTextFields[1].getText());
+                    double ejectTemp = Double.parseDouble(inputTextFields[2].getText());
+                    double injectionSpeed = Double.parseDouble(inputTextFields[3].getText())/ 10.0; 
+;
+                    double injectionPressure = Double.parseDouble(inputTextFields[4].getText());
+                    double openingLength = Double.parseDouble(inputTextFields[5].getText());
+                    double openingWidth = Double.parseDouble(inputTextFields[6].getText());
+                    double length = Double.parseDouble(inputTextFields[7].getText());
+                    double width = Double.parseDouble(inputTextFields[8].getText());
+                    double height = Double.parseDouble(inputTextFields[9].getText());
+                    double thickness = Double.parseDouble(inputTextFields[10].getText());
+
                     String selectedMaterial = (String) materialComboBox.getSelectedItem();
-                    double thermalDiffusivity = MaterialParameters(selectedMaterial, txt1, txt2, txt3, errorLabel);
-                    if (thermalDiffusivity == 0) {
-                        errorLabel.setText("Material parameters not found!");
+                    double thermalDiffusivity = MaterialParameters(selectedMaterial, inputTextFields[0], inputTextFields[1], inputTextFields[2], errorLabel);
+
+                    errorLabel.setVisible(false);
+
+                    // Check if thermalDiffusivity was successfully retrieved from materials.txt
+                    if (thermalDiffusivity <= 0) {
+                        errorLabel.setText("Material parameters not found or thermal diffusivity is zero/negative! Please select a valid material.");
                         errorLabel.setVisible(true);
+                        return;
                     }
-                    if ((meltTemp - ejectTemp) <= 0 || (moldTemp - ejectTemp) <= 0) {
-                        errorLabel.setText("Invalid temperature values!");
+
+                    // Validate all numerical inputs
+                    if (meltTemp <= 0 || moldTemp <= 0 || ejectTemp <= 0) {
+                        errorLabel.setText("Error: Temperatures (Melt, Mold, Eject) must be positive values.");
                         errorLabel.setVisible(true);
+                        return;
                     }
+                    if (injectionSpeed <= 0) {
+                        errorLabel.setText("Error: Injection Speed must be a positive value.");
+                        errorLabel.setVisible(true);
+                        return;
+                    }
+                    if (injectionPressure <= 0) {
+                        errorLabel.setText("Error: Injection Pressure must be a positive value.");
+                        errorLabel.setVisible(true);
+                        return;
+                    }
+                    if (openingLength <= 0 || openingWidth <= 0) {
+                        errorLabel.setText("Error: Opening Length and Width must be positive values.");
+                        errorLabel.setVisible(true);
+                        return;
+                    }
+                    if (length <= 0 || width <= 0 || height <= 0 || thickness <= 0) {
+                        errorLabel.setText("Error: Piece dimensions (Length, Width, Height, Thickness) must be positive values.");
+                        errorLabel.setVisible(true);
+                        return;
+                    }
+
+                    // Validate logical temperature relationships
+                    if (meltTemp <= moldTemp) {
+                        errorLabel.setText("Error: Melt Temperature must be greater than Mold Temperature.");
+                        errorLabel.setVisible(true);
+                        return;
+                    }
+                    if (moldTemp <= ejectTemp) {
+                        errorLabel.setText("Error: Mold Temperature must be greater than Eject Temperature.");
+                        errorLabel.setVisible(true);
+                        return;
+                    }  
+                    
                     // Calculations
-                    double coolingTime = ((height * height) / (Math.PI * Math.PI * thermalDiffusivity)) * Math.log((meltTemp - ejectTemp) / (moldTemp - ejectTemp));
+                    double coolingTime = ((thickness * thickness) / (Math.PI * Math.PI * thermalDiffusivity)) * Math.log((meltTemp - ejectTemp) / (moldTemp - ejectTemp));
                     double injectionTime = (length * width * height) / ((openingLength * openingWidth) * injectionSpeed);
                     double ejectionTime = 2.0;
                     
+                    // --- Additional check for valid calculation results ---
+                    if (Double.isNaN(coolingTime) || Double.isInfinite(coolingTime) || coolingTime < 0 ||
+                        Double.isNaN(injectionTime) || Double.isInfinite(injectionTime) || injectionTime < 0) {
+                        errorLabel.setText("Error: Calculation resulted in an invalid time value. Check your inputs (e.g., temperatures resulting in log of zero/negative, or zero speed/area).");
+                        errorLabel.setVisible(true);
+                        return;
+                    }
+
                     // Update dashboard
                     dashboard.removeAll();
                     dashboard.add(dashboardTitle);
@@ -176,24 +214,37 @@ public class Tp4 {
                     JProgressBar progressBar = new JProgressBar(0, 100);
                     progressBar.setStringPainted(true);
                     dashboard.add(progressBar);
+                    dashboard.add(errorLabel);
                     
                     // Real Time Simulation
+                    if (timer != null && timer.isRunning()) {
+                        timer.stop();
+                    }
+                    timerLabel.setText("Time: 0s");
+                    cyclePartLabel.setText("Cycle Finished Parts: 0");
+                    progressBar.setValue(0);
+
                     timer = new Timer(1000, new ActionListener() {
                         int time = 0;
-                        int totalCycleTime = (int) (injectionTime + coolingTime + ejectionTime);
+                        int totalCycleTime = (int) Math.round(injectionTime + coolingTime + ejectionTime); // Round to nearest int
 
                         public void actionPerformed(ActionEvent e) {
                             time++;
                             timerLabel.setText("Time: " + time + "s");
+
+                            double currentProgress = 0;
+                            if (totalCycleTime > 0) {
+                                currentProgress = (double)time / totalCycleTime;
+                            }
+                            progressBar.setValue((int) (currentProgress * 100));
+
+
                             if (time <= injectionTime) {
                                 cyclePartLabel.setText("Cycle Part: Injection");
-                                progressBar.setValue((int) ((time / injectionTime) * 100));
                             } else if (time <= injectionTime + coolingTime) {
                                 cyclePartLabel.setText("Cycle Part: Cooling");
-                                progressBar.setValue((int) (((time - injectionTime) / coolingTime) * 100));
                             } else if (time <= totalCycleTime) {
                                 cyclePartLabel.setText("Cycle Part: Ejection");
-                                progressBar.setValue((int) (((time - injectionTime - coolingTime) / ejectionTime) * 100));
                             } else {
                                 timer.stop();
                                 cyclePartLabel.setText("Cycle Parts: Completed");
@@ -207,7 +258,10 @@ public class Tp4 {
                     frame.repaint();
                     frame.revalidate();
                 } catch (NumberFormatException ex) {
-                    errorLabel.setText("Please enter valid numbers.");
+                    errorLabel.setText("Please enter valid numbers in all fields.");
+                    errorLabel.setVisible(true);
+                } catch (ArithmeticException ex) {
+                    errorLabel.setText("Error during calculation: " + ex.getMessage() + ". Check for zero or negative values in inputs.");
                     errorLabel.setVisible(true);
                 }
             }
@@ -223,21 +277,47 @@ public class Tp4 {
     }
 
     // Get material parameters
-    private static double MaterialParameters(String material, JTextField txt1, JTextField txt2, JTextField txt3, JLabel errorLabel) {
+    private static double MaterialParameters(String material, JTextField meltTempField, JTextField moldTempField, JTextField ejectTempField, JLabel errorLabel) {
         try (BufferedReader reader = new BufferedReader(new FileReader("materials.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(":");
+                if (fields.length < 5) { 
+                    System.err.println("Warning: Malformed line in materials.txt (too few fields): " + line);
+                    continue;
+                }
+
                 if (fields[0].equals(material)) {
-                    txt1.setText(fields[1]);
-                    txt2.setText(fields[2]);
-                    txt3.setText(fields[3]);
-                    return Double.parseDouble(fields[4]);
+                    try {
+                        // Set the text fields bydefault
+                        meltTempField.setText(fields[1]);
+                        moldTempField.setText(fields[2]);
+                        ejectTempField.setText(fields[3]);
+                        double diffusivity = Double.parseDouble(fields[4]);
+                        
+                        // Validate diffusivity from file
+                        if (diffusivity <= 0) {
+                            errorLabel.setText("Error: Thermal diffusivity for " + material + " in materials.txt must be positive.");
+                            errorLabel.setVisible(true);
+                            return 0;
+                        }
+                        errorLabel.setVisible(false);
+                        return diffusivity;
+
+                    } catch (NumberFormatException e) {
+                        errorLabel.setText("Error: Invalid number format for " + material + " in materials.txt.");
+                        errorLabel.setVisible(true);
+                        return 0;
+                    }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+            errorLabel.setText("Error reading materials.txt: " + e.getMessage() + ". Ensure file exists and is accessible.");
+            errorLabel.setVisible(true);
         }
+        errorLabel.setText("Material parameters for " + material + " not found!");
+        errorLabel.setVisible(true);
         return 0;
     }
 }
