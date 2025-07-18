@@ -1,12 +1,12 @@
 MaterialName:MeltTemperature:MoldTemperature:EjectTemperature:ThermalDiffusivity
-ABS:200:50:40:0.00115
-PP:200:50:40:0.00095
-PC:270:110:100:0.0014
-Nylon:230:80:70:0.0012
-PLA:180:50:40:0.0009
-Ceramic:900:800:700:0.105
-Porcelain:1200:900:850:0.030
-Alumina:1500:900:850:0.150
-SiliconCarbide:2000:1000:950:1.70
-Zirconia:1600:1100:1000:0.035
+ABS:200:50:40:0.115
+PP:200:50:40:0.095
+PC:270:110:100:0.14
+Nylon:230:80:70:0.12
+PLA:180:50:40:0.09
+Ceramic:900:800:700:10.5
+Porcelain:1200:900:850:3.0
+Alumina:1500:900:850:15.0
+SiliconCarbide:2000:1000:950:170.0
+Zirconia:1600:1100:1000:3.5
 
