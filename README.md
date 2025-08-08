@@ -29,10 +29,10 @@ This application was developed as a university lab assignment for the Human-Mach
 
 ## 📐 Calculations
 
-- **Injection Time** = (Piece Volume) / (Gate Area × Injection Speed)
+- **Injection Time** = `(Piece Volume) / (Gate Area × Injection Speed)`
 - **Cooling Time** = `(Thickness² / (π² × Thermal Diffusivity)) × ln((MoldTemp - EjectTemp) / (MeltTemp - EjectTemp))`
 - **Ejection Time:** A fixed value of `2.0 seconds` for simplicity in this simulation.
-- **Total Cycle Time** = Injection + Cooling + Ejection
+- **Total Cycle Time** = `Injection + Cooling + Ejection`
 
 
 ---
