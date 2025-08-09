@@ -8,7 +8,7 @@ A Java Swing-based graphical user interface desktop application designed to simu
 
 ## Project Context
 
-This application was developed as a university lab assignment for the Human-Machine Interface (HMI) module at University Dr. Yahia Fares of Médéa. It serves as a practical exercise in designing and implementing HMI solutions for industrial processes.
+This application was developed as a university lab assignment for the Human-Machine Interface (HMI) module at University Dr. Yahia Fares of Médéa, within the Bachelor's degree in Computer Systems program. It serves as a practical exercise in designing and implementing HMI solutions for industrial processes.
 
 ---
 
